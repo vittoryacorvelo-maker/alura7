@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Você Decide o Futuro da IA</title>
+<link rel="preconnect" href="https://googleapis.com"&gt;
+<link rel="preconnect" href="https://gstatic.com&quot; crossorigin>
+<link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap&quot; rel="stylesheet">
+
+<style>
+:root {
+--rosa-fundo: #fdf2f8;
+--rosa-suave: #fce7f3;
+--rosa-borda: #fbcfe8;
+--rosa-medio: #f472b6;
+--rosa-principal: #db2777;
+--rosa-escuro: #9d174d;
+--texto-principal: #3b0724;
+--texto-secundario: #701a45;
+--branco: #ffffff;
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #f5d0fe 100%);
+color: var(--texto-principal);
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 20px;
+}
+
+.caixa-principal {
+background-color: var(--branco);
+width: 100%;
+max-width: 680px;
+border-radius: 24px;
+padding: 40px;
+box-shadow: 0 20px 45px rgba(219, 39, 119, 0.14);
+border: 1px solid var(--rosa-borda);
+transition: transform 0.3s ease;
+}
+
+.cabecalho {
+text-align: center;
+margin-bottom: 28px;
+}
+
+.etiqueta {
+display: inline-block;
+background-color: var(--rosa-suave);
+color: var(--rosa-principal);
+font-size: 0.8rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 1px;
+padding: 6px 14px;
+border-radius: 999px;
+margin-bottom: 12px;
+}
+
+h1 {
+color: var(--rosa-escuro);
+font-size: 1.85rem;
+font-weight: 700;
+line-height: 1.25;
+}
+
+.barra-progresso-container {
+width: 100%;
+height: 8px;
+background-color: var(--rosa-suave);
+border-radius: 999px;
+overflow: hidden;
+margin: 22px 0 8px;
+}
+
+.barra-progresso {
+height: 100%;
+width: 0%;
+background: linear-gradient(90deg, var(--rosa-medio), var(--rosa-principal));
+border-radius: 999px;
+transition: width 0.4s ease;
+}
+
+.contador-etapa {
+text-align: right;
+font-size: 0.85rem;
+color: var(--texto-secundario);
+font-weight: 500;
+margin-bottom: 24px;
+}
+
+.caixa-perguntas {
+font-size: 1.2rem;
+font-weight: 600;
+line-height: 1.6;
+color: var(--texto-principal);
+margin-bottom: 24px;
+}
+
+.caixa-alternativas {
+display: flex;
+flex-direction: column;
+gap: 14px;
+}
+
+button.botao-alternativa {
+background-color: var(--rosa-fundo);
+color: var(--texto-principal);
+border: 2px solid var(--rosa-borda);
+border-radius: 14px;
+padding: 16px 20px;
+font-size: 1rem;
+font-weight: 500;
+text-align: left;
+line-height: 1.5;
+cursor: pointer;
+transition: all 0.25s ease;
+}
+
+button.botao-alternativa:hover {
+background-color: var(--rosa-principal);
+color: var(--branco);
+border-color: var(--rosa-principal);
+transform: translateY(-2px);
+box-shadow: 0 8px 20px rgba(219, 39, 119, 0.22);
+}
+
+button.botao-alternativa:active {
+transform: translateY(0);
+}
+
+.caixa-resultado {
+display: none;
+background-color: var(--rosa-fundo);
+border: 1px solid var(--rosa-borda);
+border-radius: 16px;
+padding: 28px;
+margin-top: 10px;
+animation: surgir 0.5s ease;
+}
+
+.caixa-resultado h2 {
+color: var(--rosa-principal);
+font-size: 1.35rem;
+margin-bottom: 14px;
+}
+
+.texto-resultado {
+font-size: 1.05rem;
+line-height: 1.75;
+color: var(--texto-principal);
+margin-bottom: 24px;
+}
+
+.botao-reiniciar {
+background: linear-gradient(90deg, var(--rosa-principal), var(--rosa-escuro));
+color: var(--branco);
+border: none;
+border-radius: 12px;
+padding: 14px 28px;
+font-size: 1rem;
+font-weight: 600;
+cursor: pointer;
+transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.botao-reiniciar:hover {
+opacity: 0.92;
+transform: translateY(-2px);
+}
+
+@keyframes surgir {
+from {
+opacity: 0;
+transform: translateY(10px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+@media (max-width: 520px) {
+.caixa-principal {
+padding: 24px;
+}
+h1 {
+font-size: 1.5rem;
+}
+}
+</style>
+</head>
+<body>
+
+<main class="caixa-principal">
+<header class="cabecalho">
+<span class="etiqueta">Missão Interativa • IA</span>
+<h1>Você decide o futuro da Inteligência Artificial</h1>
+
+<div class="barra-progresso-container">
+<div class="barra-progresso" id="barraProgresso"></div>
+</div>
+<p class="contador-etapa" id="contadorEtapa">Pergunta 1 de 5</p>
+</header>
+
+<section class="caixa-perguntas"></section>
+<section class="caixa-alternativas"></section>
+
+<section class="caixa-resultado">
+<h2>Sua jornada com a IA em 2030</h2>
+<p class="texto-resultado"></p>
+<button class="botao-reiniciar" id="botaoReiniciar">Refazer Missão</button>
+</section>
+</main>
+
+<script>
+// Seleção dos elementos do DOM
+const caixaPerguntas = document.querySelector(".caixa-perguntas");
+const caixaAlternativas = document.querySelector(".caixa-alternativas");
+const caixaResultado = document.querySelector(".caixa-resultado");
+const textoResultado = document.querySelector(".texto-resultado");
+const barraProgresso = document.getElementById("barraProgresso");
+const contadorEtapa = document.getElementById("contadorEtapa");
+const botaoReiniciar = document.getElementById("botaoReiniciar");
+
+// Lista de objetos contendo as perguntas e alternativas
+const perguntas = [
+{
+enunciado: "Logo ao sair da escola, você se depara com uma nova ferramenta de Inteligência Artificial capaz de responder dúvidas complexas e criar imagens realistas em segundos. Qual é a sua primeira reação?",
+alternativas: [
+{
+texto: "Fico receoso com a rapidez com que essa tecnologia avança e como ela pode substituir tarefas humanas.",
+afirmacao: "No início, você manteve uma postura cautelosa diante do avanço acelerado das inteligências artificiais."
+},
+{
+texto: "Fico empolgado e começo a testar como essa ferramenta pode ajudar nos meus estudos e projetos diários.",
+afirmacao: "Desde o primeiro contato, você buscou explorar o potencial da IA como uma aliada para aprender mais rápido."
+}
+]
+},
+{
+enunciado: "Na aula de tecnologia, a professora pede um trabalho de pesquisa sobre o impacto da IA na sociedade. Como você decide produzir o seu material?",
+alternativas: [
+{
+texto: "Uso a IA para organizar tópicos e encontrar fontes, mas escrevo o texto com minhas próprias palavras e revisão crítica.",
+afirmacao: "Nos trabalhos escolares, aprendeu a combinar a agilidade da IA com o seu próprio senso crítico e criatividade."
+},
+{
+texto: "Peço para a IA gerar todo o trabalho pronto e entrego sem revisar as informações geradas.",
+afirmacao: "Percebeu na prática que confiar cegamente em respostas prontas pode comprometer a autenticidade e a precisão do aprendizado."
+}
+]
+},
+{
+enunciado: "Durante um debate na turma sobre o futuro das profissões, surge a dúvida: a Inteligência Artificial vai acabar com os empregos?",
+alternativas: [
+{
+texto: "Defendo que a IA transformará o mercado, exigindo que as pessoas desenvolvam novas habilidades digitais e humanas.",
+afirmacao: "Passou a defender que o futuro do trabalho pertence a quem sabe colaborar com a tecnologia de forma ética."
+},
+{
+texto: "Acredito que muitas funções repetitivas serão automatizadas e precisamos criar regras para proteger os trabalhadores.",
